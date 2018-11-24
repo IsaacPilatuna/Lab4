@@ -78,3 +78,14 @@ GO
 UPDATE pruebas_pedidos.catalogo.Deudor
 set codcli = 'C000'+substring(codcli,2,3)
 GO
+
+-- AGREGACIÓN DE PRIMARY KEYS
+
+ALTER TABLE pruebas_pedidos.catalogo.Cliente 
+ADD Constraint [pk_Cliente] Primary Key ([codcli])
+GO
+
+
+ALTER TABLE pruebas_pedidos.catalogo.Deudor 
+ADD Constraint [pk_Deudor] Primary Key ([codcli])
+GO
