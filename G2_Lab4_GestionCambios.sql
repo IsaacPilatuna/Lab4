@@ -52,3 +52,29 @@ GO
 ALTER TABLE pruebas_pedidos.catalogo.Cliente
 DROP CONSTRAINT pk_Cliente
 GO
+
+-- ACTUALIZACIÓN DE CÓDIGOS DE LOS CLIENTES AL NUEVO FORMATO
+
+UPDATE pruebas_pedidos.catalogo.Cliente
+set codcli = 'C000'+substring(codcli,2,3)
+GO
+
+UPDATE pruebas_pedidos.catalogo.Cliente
+set garante = 'C000'+substring(garante,2,3)
+GO
+
+UPDATE pruebas_pedidos.movimiento.CabezeraP
+set codcli = 'C000'+substring(codcli,2,3)
+GO
+
+UPDATE pruebas_pedidos.dbo.cabezacuerpoP
+set codcli = 'C000'+substring(codcli,2,3)
+GO
+
+UPDATE pruebas_pedidos.movimiento.Pagos
+set codcli = 'C000'+substring(codcli,2,3)
+GO
+
+UPDATE pruebas_pedidos.catalogo.Deudor
+set codcli = 'C000'+substring(codcli,2,3)
+GO
