@@ -155,3 +155,17 @@ GO
 ALTER TABLE pruebas_pedidos.dbo.cabezacuerpoP
 ALTER COLUMN codped char(10) 
 GO
+
+-- ACTUALIZACIÓN DE CÓDIGOS DE PEDIDOS AL NUEVO FORMATO
+
+UPDATE pruebas_pedidos.movimiento.CabezeraP
+set codped = 'PE000000'+substring(codped,2,3)
+GO
+
+UPDATE pruebas_pedidos.movimiento.DetalleP
+set codped = 'PE000000'+substring(codped,2,3)
+GO
+
+UPDATE pruebas_pedidos.dbo.cabezacuerpoP
+set codped = 'PE000000'+substring(codped,2,3)
+GO
