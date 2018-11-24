@@ -131,7 +131,13 @@ GO
 
 -- ELIMINACIÓN DE LAS RESTRICCIONES FOREING KEYS DE PEDIDOS
 
-
 ALTER TABLE pruebas_pedidos.movimiento.DetalleP
 DROP CONSTRAINT tienedetalle
+GO
+
+
+-- ELIMINACIÓN DE LAS RESTRICCIONES PRIMARY KEYS
+
+ALTER TABLE pruebas_pedidos.movimiento.CabezeraP
+DROP CONSTRAINT [pk_CabezeraP]
 GO
