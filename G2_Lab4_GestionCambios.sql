@@ -23,6 +23,8 @@ ALTER DATABASE pruebas_pedidos MODIFY FILE (NAME='pedido1_log',
 NEWNAME='pruebas_pedido1_log')
 GO
 
+-- CAMBIOS EN LA BASE DE DATOS DE PRUEBAS 
+
 -- ELIMINACION DE RESTRICCIONES DE LLAVES PRIMARIAS Y LLAVES FORANEAS DE CÓDIGO CLIENTE
 ALTER TABLE pruebas_pedidos.catalogo.Deudor
 DROP CONSTRAINT pk_Deudor
@@ -51,6 +53,32 @@ GO
 
 ALTER TABLE pruebas_pedidos.catalogo.Cliente
 DROP CONSTRAINT pk_Cliente
+GO
+
+-- CAMBIO DE ESTRUCTURA DE LAS COLUMNAS
+
+ALTER TABLE pruebas_pedidos.catalogo.Cliente
+ALTER COLUMN codcli char(6) NOT NULL
+GO
+
+ALTER TABLE pruebas_pedidos.catalogo.Cliente
+ALTER COLUMN garante char(6) 
+GO
+
+ALTER TABLE pruebas_pedidos.movimiento.CabezeraP
+ALTER COLUMN codcli char(6) 
+GO
+
+ALTER TABLE pruebas_pedidos.dbo.cabezacuerpoP
+ALTER COLUMN codcli char(6) 
+GO
+
+ALTER TABLE pruebas_pedidos.movimiento.Pagos
+ALTER COLUMN codcli char(6) 
+GO
+
+ALTER TABLE pruebas_pedidos.catalogo.Deudor
+ALTER COLUMN codcli char(6) NOT NULL
 GO
 
 -- ACTUALIZACIÓN DE CÓDIGOS DE LOS CLIENTES AL NUEVO FORMATO
@@ -181,3 +209,5 @@ GO
 Alter table pruebas_pedidos.movimiento.[DetalleP] add Constraint [tienedetalle] foreign key([codped]) 
 references pruebas_pedidos.movimiento.[CabezeraP] ([codped])  on update no action on delete no action 
 go
+
+
