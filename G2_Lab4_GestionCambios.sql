@@ -89,3 +89,21 @@ GO
 ALTER TABLE pruebas_pedidos.catalogo.Deudor 
 ADD Constraint [pk_Deudor] Primary Key ([codcli])
 GO
+
+-- AGREGACIÓN DE FOREING KEYS
+
+Alter table pruebas_pedidos.movimiento.[CabezeraP] add Constraint [Solicita] foreign key([codcli]) 
+references pruebas_pedidos.catalogo.[Cliente] ([codcli])  on update no action on delete no action 
+go
+
+Alter table pruebas_pedidos.catalogo.[Cliente] add Constraint [debetener] foreign key([garante]) 
+references pruebas_pedidos.catalogo.[Cliente] ([codcli])  on update no action on delete no action 
+go
+
+Alter table pruebas_pedidos.catalogo.Deudor add Constraint [debe] foreign key([codcli]) 
+references pruebas_pedidos.catalogo.[Cliente] ([codcli])  on update no action on delete no action 
+go
+
+Alter table pruebas_pedidos.movimiento.[Pagos] add Constraint [debe] foreign key([codcli]) 
+references pruebas_pedidos.catalogo.[Cliente] ([codcli])  on update no action on delete no action 
+go
