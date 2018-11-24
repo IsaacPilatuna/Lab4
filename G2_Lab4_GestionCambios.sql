@@ -23,7 +23,7 @@ ALTER DATABASE pruebas_pedidos MODIFY FILE (NAME='pedido1_log',
 NEWNAME='pruebas_pedido1_log')
 GO
 
--- ELIMINACION DE RESTRICCIONES DE LLAVES PRIMARIAS Y LLAVES FORANEAS
+-- ELIMINACION DE RESTRICCIONES DE LLAVES PRIMARIAS Y LLAVES FORANEAS DE CÓDIGO CLIENTE
 ALTER TABLE pruebas_pedidos.catalogo.Deudor
 DROP CONSTRAINT pk_Deudor
 GO
@@ -79,7 +79,7 @@ UPDATE pruebas_pedidos.catalogo.Deudor
 set codcli = 'C000'+substring(codcli,2,3)
 GO
 
--- AGREGACIÓN DE PRIMARY KEYS
+-- AGREGACIÓN DE PRIMARY KEYS DE CÓDIGO CLIENTE
 
 ALTER TABLE pruebas_pedidos.catalogo.Cliente 
 ADD Constraint [pk_Cliente] Primary Key ([codcli])
@@ -90,7 +90,7 @@ ALTER TABLE pruebas_pedidos.catalogo.Deudor
 ADD Constraint [pk_Deudor] Primary Key ([codcli])
 GO
 
--- AGREGACIÓN DE FOREING KEYS
+-- AGREGACIÓN DE FOREING KEYS RELACIONADAS A CÓDIGO CLIENTE
 
 Alter table pruebas_pedidos.movimiento.[CabezeraP] add Constraint [Solicita] foreign key([codcli]) 
 references pruebas_pedidos.catalogo.[Cliente] ([codcli])  on update no action on delete no action 
@@ -127,4 +127,11 @@ GO
 
 UPDATE pruebas_pedidos.catalogo.Deudor
 set LímiteCrédito = LímiteCrédito*1.1
+GO
+
+-- ELIMINACIÓN DE LAS RESTRICCIONES FOREING KEYS DE PEDIDOS
+
+
+ALTER TABLE pruebas_pedidos.movimiento.DetalleP
+DROP CONSTRAINT tienedetalle
 GO
