@@ -141,3 +141,17 @@ GO
 ALTER TABLE pruebas_pedidos.movimiento.CabezeraP
 DROP CONSTRAINT [pk_CabezeraP]
 GO
+
+-- MODIFICACIÓN DE COLUMNAS DE CÓDIGO PEDIDO AL NUEVO FORMATO
+
+ALTER TABLE pruebas_pedidos.movimiento.CabezeraP
+ALTER COLUMN codped char(10) NOT NULL
+GO
+
+ALTER TABLE pruebas_pedidos.movimiento.DetalleP
+ALTER COLUMN codped char(10) 
+GO
+
+ALTER TABLE pruebas_pedidos.dbo.cabezacuerpoP
+ALTER COLUMN codped char(10) 
+GO
