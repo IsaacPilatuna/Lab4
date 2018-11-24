@@ -107,3 +107,24 @@ go
 Alter table pruebas_pedidos.movimiento.[Pagos] add Constraint [debe] foreign key([codcli]) 
 references pruebas_pedidos.catalogo.[Cliente] ([codcli])  on update no action on delete no action 
 go
+
+-- INCREMENTO DE LÍMITE DE CRÉDITO EN 10%
+
+
+ALTER TABLE pruebas_pedidos.catalogo.Cliente 
+DROP CONSTRAINT [checkCredito] 
+GO
+
+ALTER TABLE pruebas_pedidos.catalogo.Cliente 
+ADD CONSTRAINT [checkCredito] CHECK (credito <= 2200 )
+GO
+
+-- INCREMENTO DE CRÉDITO DE LOS CLIENTES EN 10%
+
+UPDATE pruebas_pedidos.catalogo.Cliente
+set credito = credito*1.1
+GO
+
+UPDATE pruebas_pedidos.catalogo.Deudor
+set LímiteCrédito = LímiteCrédito*1.1
+GO
