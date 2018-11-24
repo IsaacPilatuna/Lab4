@@ -23,7 +23,7 @@ ALTER DATABASE pruebas_pedidos MODIFY FILE (NAME='pedido1_log',
 NEWNAME='pruebas_pedido1_log')
 GO
 
--- ELIMINACION DE RESTRICCIONES DE LLAVES PRIMARIAS Y LLAVES FORANEAS
+-- ELIMINACION DE RESTRICCIONES DE LLAVES PRIMARIAS Y LLAVES FORANEAS DE CÓDIGO CLIENTE
 ALTER TABLE pruebas_pedidos.catalogo.Deudor
 DROP CONSTRAINT pk_Deudor
 GO
@@ -79,7 +79,7 @@ UPDATE pruebas_pedidos.catalogo.Deudor
 set codcli = 'C000'+substring(codcli,2,3)
 GO
 
--- AGREGACIÓN DE PRIMARY KEYS
+-- AGREGACIÓN DE PRIMARY KEYS DE CÓDIGO CLIENTE
 
 ALTER TABLE pruebas_pedidos.catalogo.Cliente 
 ADD Constraint [pk_Cliente] Primary Key ([codcli])
@@ -90,7 +90,7 @@ ALTER TABLE pruebas_pedidos.catalogo.Deudor
 ADD Constraint [pk_Deudor] Primary Key ([codcli])
 GO
 
--- AGREGACIÓN DE FOREING KEYS
+-- AGREGACIÓN DE FOREING KEYS RELACIONADAS A CÓDIGO CLIENTE
 
 Alter table pruebas_pedidos.movimiento.[CabezeraP] add Constraint [Solicita] foreign key([codcli]) 
 references pruebas_pedidos.catalogo.[Cliente] ([codcli])  on update no action on delete no action 
@@ -128,3 +128,56 @@ GO
 UPDATE pruebas_pedidos.catalogo.Deudor
 set LímiteCrédito = LímiteCrédito*1.1
 GO
+
+-- ELIMINACIÓN DE LAS RESTRICCIONES FOREING KEYS DE PEDIDOS
+
+ALTER TABLE pruebas_pedidos.movimiento.DetalleP
+DROP CONSTRAINT tienedetalle
+GO
+
+
+-- ELIMINACIÓN DE LAS RESTRICCIONES PRIMARY KEYS
+
+ALTER TABLE pruebas_pedidos.movimiento.CabezeraP
+DROP CONSTRAINT [pk_CabezeraP]
+GO
+
+-- MODIFICACIÓN DE COLUMNAS DE CÓDIGO PEDIDO AL NUEVO FORMATO
+
+ALTER TABLE pruebas_pedidos.movimiento.CabezeraP
+ALTER COLUMN codped char(10) NOT NULL
+GO
+
+ALTER TABLE pruebas_pedidos.movimiento.DetalleP
+ALTER COLUMN codped char(10) 
+GO
+
+ALTER TABLE pruebas_pedidos.dbo.cabezacuerpoP
+ALTER COLUMN codped char(10) 
+GO
+
+-- ACTUALIZACIÓN DE CÓDIGOS DE PEDIDOS AL NUEVO FORMATO
+
+UPDATE pruebas_pedidos.movimiento.CabezeraP
+set codped = 'PE000000'+substring(codped,2,3)
+GO
+
+UPDATE pruebas_pedidos.movimiento.DetalleP
+set codped = 'PE000000'+substring(codped,2,3)
+GO
+
+UPDATE pruebas_pedidos.dbo.cabezacuerpoP
+set codped = 'PE000000'+substring(codped,2,3)
+GO
+
+-- AGREGACIÓN DE LA LLAVE PRIMARIA DEL CÓDIGO PEDIDO EN LA TABLA CABEZERAP
+
+ALTER TABLE pruebas_pedidos.movimiento.CabezeraP 
+ADD Constraint [pk_CabezeraP] Primary Key ([codped])
+GO
+
+-- AGREGACIÓN DE LA LLAVE FORANEA
+
+Alter table pruebas_pedidos.movimiento.[DetalleP] add Constraint [tienedetalle] foreign key([codped]) 
+references pruebas_pedidos.movimiento.[CabezeraP] ([codped])  on update no action on delete no action 
+go
