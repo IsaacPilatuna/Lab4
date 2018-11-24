@@ -23,5 +23,32 @@ ALTER DATABASE pruebas_pedidos MODIFY FILE (NAME='pedido1_log',
 NEWNAME='pruebas_pedido1_log')
 GO
 
+-- ELIMINACION DE RESTRICCIONES DE LLAVES PRIMARIAS Y LLAVES FORANEAS
+ALTER TABLE pruebas_pedidos.catalogo.Deudor
+DROP CONSTRAINT pk_Deudor
+GO
 
 
+ALTER TABLE pruebas_pedidos.catalogo.Deudor
+DROP CONSTRAINT debe
+GO
+
+
+ALTER TABLE pruebas_pedidos.movimiento.Pagos
+DROP CONSTRAINT debe
+GO
+
+
+ALTER TABLE pruebas_pedidos.movimiento.CabezeraP
+DROP CONSTRAINT solicita
+GO
+
+
+ALTER TABLE pruebas_pedidos.catalogo.Cliente
+DROP CONSTRAINT debetener
+GO
+
+
+ALTER TABLE pruebas_pedidos.catalogo.Cliente
+DROP CONSTRAINT pk_Cliente
+GO
