@@ -169,3 +169,15 @@ GO
 UPDATE pruebas_pedidos.dbo.cabezacuerpoP
 set codped = 'PE000000'+substring(codped,2,3)
 GO
+
+-- AGREGACIÓN DE LA LLAVE PRIMARIA DEL CÓDIGO PEDIDO EN LA TABLA CABEZERAP
+
+ALTER TABLE pruebas_pedidos.movimiento.CabezeraP 
+ADD Constraint [pk_CabezeraP] Primary Key ([codped])
+GO
+
+-- AGREGACIÓN DE LA LLAVE FORANEA
+
+Alter table pruebas_pedidos.movimiento.[DetalleP] add Constraint [tienedetalle] foreign key([codped]) 
+references pruebas_pedidos.movimiento.[CabezeraP] ([codped])  on update no action on delete no action 
+go
